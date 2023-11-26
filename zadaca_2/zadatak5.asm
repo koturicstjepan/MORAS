@@ -1,0 +1,79 @@
+
+@16384
+D=A
+@SCREEN
+M=D
+
+@0
+D=A
+@LAST_CHAR
+M=D
+@SCREEN
+D=M
+@CURR_POS
+M=D
+
+(INFINITE_LOOP)
+
+  @CURR_POS
+  D=M
+  @END_SCREEN
+  D=D-A
+  @15
+  D=D-M
+  @NO_INPUT
+  D;JLE
+
+  @KBD
+  D=M
+  @0
+  D;JNE
+  @NO_INPUT
+  0;JMP
+
+  @LAST_CHAR
+  D=M
+  @FONT_TABLE
+  A=D+A
+  D=M
+  @SCREEN
+  A=M
+  M=D
+
+  @CURR_POS
+  M=M+1
+
+  @LAST_CHAR
+  M=0
+
+  @INFINITE_LOOP
+  0;JMP
+
+(FONT_TABLE)
+
+  @0
+  M=0b1111111000000000
+
+  @1
+  M=0b1111111000100000
+
+  @2
+  M=0b0010000000100000
+
+  @3
+  M=0b1111111000100000
+
+  @4
+  M=0b0010001000100000
+
+(END_SCREEN)
+  @16384
+  A=M
+  0;JMP
+
+(NO_INPUT)
+  @LAST_CHAR
+  M=0
+
+  @INFINITE_LOOP
+  0;JMP
